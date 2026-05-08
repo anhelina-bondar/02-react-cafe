@@ -5,6 +5,7 @@ import CafeInfo from "../CafeInfo/CafeInfo.tsx";
 import VoteOptions from "../VoteOptions/VoteOptions";
 import type { Votes, VoteType } from "../../types/votes";
 import Notification from "../Notification/Notification.tsx";
+import VoteStats from "../VoteStats/VoteStats.tsx";
 
 export default function App() {
   const [votes, setVotes] = useState<Votes>({
@@ -39,11 +40,15 @@ export default function App() {
         onReset={resetVotes}
         canReset={totalVotes > 0}
       />
-      <Notification
-        votes={votes}
-        totalVotes={totalVotes}
-        positiveRate={positiveRate}
-      />
+      {totalVotes > 0 ? (
+        <VoteStats
+          votes={votes}
+          totalVotes={totalVotes}
+          positiveRate={positiveRate}
+        />
+      ) : (
+        <Notification />
+      )}
     </div>
   );
 }
